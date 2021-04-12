@@ -37,7 +37,7 @@
         Legend,
         LayerList
       ) {
-		  
+
 
 
       	var info = new OAuthInfo({
@@ -56,15 +56,16 @@
 		esriId
 			.checkSignInStatus(info.portalUrl + "/sharing")
 			.then(function() {
-			displayItems();
+			
 			})
-			.catch(console.error("catch..............."));
+
 
 
 
 		esriId.getCredential(info.portalUrl + "/sharing");
 
 
+		esriConfig.portalUrl = "https://cloudgis.multiconsult.no/portal/"
 		
 
         // load web scene from ArcGIS Online
