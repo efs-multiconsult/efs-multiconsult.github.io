@@ -40,25 +40,25 @@
 
 
       	var info = new OAuthInfo({
-		  // Swap this ID out with registered application ID
-		  appId: "uexIzIm27zMWY9XL",
-		  // Uncomment the next line and update if using your own portal
-		  portalUrl: "https://cloudgis.multiconsult.no/portal/",
-		  // Uncomment the next line to prevent the user's signed in state from being shared with other apps on the same domain with the same authNamespace value.
-		  // authNamespace: "portal_oauth_inline",
-		  popup: false
+			// Swap this ID out with registered application ID
+			appId: "uexIzIm27zMWY9XL",
+			// Uncomment the next line and update if using your own portal
+			portalUrl: "https://cloudgis.multiconsult.no/portal/",
+			// Uncomment the next line to prevent the user's signed in state from being shared with other apps on the same domain with the same authNamespace value.
+			// authNamespace: "portal_oauth_inline",
+			popup: false
 		});
 
 		esriId.registerOAuthInfos([info]);
 
 
 		esriId
-		  .checkSignInStatus(info.portalUrl + "/sharing")
-		  .then(function() {
-		    displayItems();
-		  })
-		  .catch(console.error("catch..............."));
-          
+			.checkSignInStatus(info.portalUrl + "/sharing")
+			.then(function() {
+			displayItems();
+			})
+			.catch(console.error("catch..............."));
+
 
 
 		esriId.getCredential(info.portalUrl + "/sharing");
@@ -68,83 +68,85 @@
 
         // load web scene from ArcGIS Online
         var webScene = new WebScene({
-          portalItem: {
-            // autocasts as new PortalItem()
-            //id: "7685f7ba6b47426ea20d6f640cf98596"
-            id: "992014ee27c74f45a3ce5fa616453d6e"
-          }
+			portalItem: {
+			// autocasts as new PortalItem()
+			//id: "7685f7ba6b47426ea20d6f640cf98596"
+			id: "992014ee27c74f45a3ce5fa616453d6e"
+			}
         });
 
-        // create the scene view
-        var view = new SceneView({
-          container: "viewDiv",
-          map: webScene,
-          environment: {
-            lighting: {
-              directShadowsEnabled: true
-            }
-          }
-        });
-
-
-        
-
-
-        /*
-        webScene.when(function() {
-          // the field containing the building is different for each layer
-          // buildingQuery defines the query corresponding to each layer in the web scene
-
-
-          // we will use the Interior Space layer many times, so we'll save it in a variable
-          var officeLayer = webScene.layers.find(function(l) {
-            return l.title === "Interior Space";
-          });
-
-
-         
-
-          // function that will filter by the selected floor
-          function showFloors(event) {
-            // retrieve the query stored in the selected value
-            var floorQuery = event.target.value;
-
-            // update the definition expression of all layers except the wireframe layer
-            webScene.layers.forEach(function(layer) {
-              if (layer.title !== "Building Wireframe") {
-                layer.definitionExpression = floorQuery;
-              }
-            });
-          }
-
-
-        */
+		// create the scene view
+		var view = new SceneView({
+			container: "viewDiv",
+			map: webScene,
+			environment: {
+			lighting: {
+				directShadowsEnabled: true
+			}
+			}
+		});
 
 
 
-          document.getElementById("floorSelect").addEventListener("change", showFloors);
 
-          // add a legend for the officeLayer
-          var legend = new Legend({
-            view: view,
-            layerInfos: [
-              {
-                layer: officeLayer,
-                title: " "
-              }
-            ]
-          });
 
-          view.ui.add(legend, "bottom-right");
 
-          // Add a layer list to enable and disable the building wireframe
-          var layerList = new LayerList({
-            view: view
-          });
+		webScene.when(function() {
+			// the field containing the building is different for each layer
+			// buildingQuery defines the query corresponding to each layer in the web scene
 
-          view.ui.add(layerList, {
-            position: "top-right"
-          });
+
+			// we will use the Interior Space layer many times, so we'll save it in a variable
+			var officeLayer = webScene.layers.find(function(l) {
+			return l.title === "Interior Space";
+			});
+
+
+			
+			/*
+			// function that will filter by the selected floor
+			function showFloors(event) {
+			// retrieve the query stored in the selected value
+			var floorQuery = event.target.value;
+
+			// update the definition expression of all layers except the wireframe layer
+			webScene.layers.forEach(function(layer) {
+				if (layer.title !== "Building Wireframe") {
+				layer.definitionExpression = floorQuery;
+				}
+			});
+			}
+
+
+
+
+
+
+			document.getElementById("floorSelect").addEventListener("change", showFloors);
+
+			// add a legend for the officeLayer
+			var legend = new Legend({
+				view: view,
+				layerInfos: [
+					{
+					layer: officeLayer,
+					title: " "
+					}
+				]
+			});
+
+			view.ui.add(legend, "bottom-right");
+
+			*/
+
+			// Add a layer list to enable and disable the building wireframe
+			var layerList = new LayerList({
+				view: view
+			});
+
+			view.ui.add(layerList, {
+				position: "top-right"
+			});
         });
 
         
