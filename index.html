@@ -56,6 +56,7 @@
 		esriId
 			.checkSignInStatus(info.portalUrl + "/sharing")
 			.then(function() {
+				
 			
 			})
 
@@ -94,15 +95,18 @@
 
 
 		webScene.when(function() {
-			// the field containing the building is different for each layer
-			// buildingQuery defines the query corresponding to each layer in the web scene
 
+			// function that will filter by the selected floor
+			function showFloors(event) {
+				// retrieve the query stored in the selected value
+				var floorQuery = event.target.value;
+				// update the definition expression of all layers except the wireframe layer
+				webScene.layers.forEach(function(layer) {
+				layer.definitionExpression = floorQuery;
+				});
+			}
 
-			// we will use the Interior Space layer many times, so we'll save it in a variable
-			var officeLayer = webScene.layers.find(function(l) {
-			return l.title === "Interior Space";
-			});
-
+		  	document.getElementById("floorSelect").addEventListener("change", showFloors);
 
 			
 			/*
@@ -163,16 +167,28 @@
 
   <body>
     <div id="viewDiv"></div>
-    <div id="optionsDiv" class="esri-widget">
-      <div>
-        <b>Filter building by floor:</b>
-        <select id="floorSelect">
-          <option value="1=1">All</option>
-          <option value="FLOOR = '1'">1</option>
-          <option value="FLOOR = '2'">2</option>
-          <option value="FLOOR = '3'">3</option>
-        </select>
-      </div>
+	<div id="optionsDiv" class="esri-widget">
+		<div>
+		  <b>Filtrer på etasje:</b>
+		  <select id="floorSelect">
+			<option value="StoreyName = 'Etasje U2'">U2</option>
+			<option value="StoreyName = 'Etasje U1'">U1</option>
+			<option value="StoreyName = 'Etasje 1'">1</option>
+			<option value="StoreyName = 'Etasje 2'">2</option>
+			<option value="StoreyName = 'Etasje 3'">3</option>
+			<option value="StoreyName = 'Etasje 4'">4</option>
+			<option value="StoreyName = 'Etasje 5'">5</option>
+			<option value="StoreyName = 'Etasje 6'">6</option>
+			<option value="StoreyName = 'Etasje 7'">7</option>
+			<option value="StoreyName = 'Etasje 8'">8</option>
+			<option value="StoreyName = 'Etasje 9'">9</option>
+			<option value="StoreyName = 'Etasje 10'">10</option>
+			<option value="StoreyName = 'Etasje 11'">11</option>
+			<option value="StoreyName = 'Etasje 12'">12</option>
+			<option value="StoreyName = 'Etasje 13'">13</option>
+		  </select>
+		</div>
+	  </div>
     </div>
   </body>
 </html>
