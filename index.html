@@ -102,7 +102,7 @@
 				var floorQuery = event.target.value;
 				// update the definition expression of all layers except the wireframe layer
 				webScene.layers.forEach(function(layer) {
-					if(layer.title != "IF_NRHJA200_Fasade_skjelett") {
+					if(layer.title != "IF NRHJA200 Fasade skjelett - IF NRHJA200 Fasade skjelett") {
 						layer.definitionExpression = floorQuery;
 					}
 					
