@@ -39,7 +39,6 @@
       ) {
 
 
-
       	var info = new OAuthInfo({
 			// Swap this ID out with registered application ID
 			appId: "uexIzIm27zMWY9XL",
@@ -56,12 +55,8 @@
 		esriId
 			.checkSignInStatus(info.portalUrl + "/sharing")
 			.then(function() {
-				
-			
+				// ikke behov
 			})
-
-
-
 
 		esriId.getCredential(info.portalUrl + "/sharing");
 
@@ -92,8 +87,6 @@
 
 
 
-
-
 		webScene.when(function() {
 
 			// function that will filter by the selected floor
@@ -109,44 +102,9 @@
 				});
 			}
 
-		  	document.getElementById("floorSelect").addEventListener("change", showFloors);
-
-			
-			/*
-			// function that will filter by the selected floor
-			function showFloors(event) {
-			// retrieve the query stored in the selected value
-			var floorQuery = event.target.value;
-
-			// update the definition expression of all layers except the wireframe layer
-			webScene.layers.forEach(function(layer) {
-				if (layer.title !== "Building Wireframe") {
-				layer.definitionExpression = floorQuery;
-				}
-			});
-			}
-
-
-
-
-
 
 			document.getElementById("floorSelect").addEventListener("change", showFloors);
 
-			// add a legend for the officeLayer
-			var legend = new Legend({
-				view: view,
-				layerInfos: [
-					{
-					layer: officeLayer,
-					title: " "
-					}
-				]
-			});
-
-			view.ui.add(legend, "bottom-right");
-
-			*/
 
 			// Add a layer list to enable and disable the building wireframe
 			var layerList = new LayerList({
