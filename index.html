@@ -67,8 +67,7 @@
         // load web scene from ArcGIS Online
         var webScene = new WebScene({
 			portalItem: {
-			// autocasts as new PortalItem()
-			//id: "7685f7ba6b47426ea20d6f640cf98596"
+
 			id: "12b6feda2cae40ec87286be187554814"
 			}
         });
@@ -95,7 +94,7 @@
 				var floorQuery = event.target.value;
 				// update the definition expression of all layers except the wireframe layer
 				webScene.layers.forEach(function(layer) {
-					if(layer.title.includes("skjelett") == false) {
+					if(layer.title.includes("Fasade") == false) {
 						layer.definitionExpression = floorQuery;
 					}
 					
