@@ -77,9 +77,9 @@
 			container: "viewDiv",
 			map: webScene,
 			environment: {
-			lighting: {
-				directShadowsEnabled: true
-			}
+				lighting: {
+					directShadowsEnabled: true
+				}
 			}
 		});
 
@@ -110,8 +110,15 @@
 				view: view
 			});
 
+			var legend = new Legend({
+				view: view
+			});
+
 			view.ui.add(layerList, {
 				position: "top-right"
+			});
+			view.ui.add(legend, {
+				position: "bottom-right"
 			});
         });
 
