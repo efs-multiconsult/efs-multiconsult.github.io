@@ -139,7 +139,7 @@
             	uttrykksliste.push(etgStreng);
             } else if (property == 'vegger') {
               if (filtervalg[property] == false) {
-              	uttrykksliste.push("ObjectType NOT LIKE 'Basic Wall%'")
+              	uttrykksliste.push("ObjectType NOT IN ('Basic Wall:Innervegg - Generic 150', 'Basic Wall:innvendig yttervegg', 'Basic Wall:Vegg Betong 250 mm', 'Basic Wall:Vegg Betong 300 mm', 'Basic Wall:Vegg Brannseksjonering 550 mm', 'Basic Wall:Vegg Gips 150 mm', 'Basic Wall:Vegg Påforing Gips 75 mm')")
               }
 
             } else if (property == 'omrader') {
@@ -149,7 +149,7 @@
 
             } else if (property == 'rom') {
               if (filtervalg[property] == false) {
-              	uttrykksliste.push("NOSHN_ROM_ShnHdDf IS NULL")
+              	uttrykksliste.push("NOSHN_ROM_ShnHdDf IS NOT NULL AND LONGNAME <> 'Area'")
               }
 
             } 
