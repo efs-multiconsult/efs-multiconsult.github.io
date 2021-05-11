@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>SceneLayer filter and query | Sample | ArcGIS API for JavaScript 4.18</title>
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      #optionsDiv {
+        width: 250px;
+        padding: 0 12px 0 12px;
+        background-color: white;
+        padding: 10px;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.18/"></script>
+
+    <script>
+      require(["esri/identity/OAuthInfo", "esri/portal/Portal", "esri/config", "esri/portal/PortalQueryParams", "esri/identity/IdentityManager", "esri/WebScene", "esri/views/SceneView", "esri/widgets/Legend", "esri/widgets/LayerList", "esri/widgets/BasemapGallery",  "esri/widgets/Expand"], function(
+      	OAuthInfo,
+      	Portal,
+      	esriConfig,
+      	PortalQueryParams,
+      	esriId,
+        WebScene,
+        SceneView,
+        Legend,
+        LayerList,
+		BasemapGallery,
+		Expand
+      ) {
+
+
+      	var info = new OAuthInfo({
+			// Swap this ID out with registered application ID
+			appId: "uexIzIm27zMWY9XL",
+			// Uncomment the next line and update if using your own portal
+			portalUrl: "https://cloudgis.multiconsult.no/portal/",
+			// Uncomment the next line to prevent the user's signed in state from being shared with other apps on the same domain with the same authNamespace value.
+			// authNamespace: "portal_oauth_inline",
+			popup: false
+		});
+
+		esriId.registerOAuthInfos([info]);
+
+
+		esriId
+			.checkSignInStatus(info.portalUrl + "/sharing")
+			.then(function() {
+				// ikke behov
+			})
+
+		esriId.getCredential(info.portalUrl + "/sharing");
+
+
+		esriConfig.portalUrl = "https://cloudgis.multiconsult.no/portal/"
+		
+
+        // load web scene from ArcGIS Online
+        var webScene = new WebScene({
+			portalItem: {
+
+			id: "12b6feda2cae40ec87286be187554814"
+			}
+        });
+
+		// create the scene view
+		var view = new SceneView({
+			container: "viewDiv",
+			map: webScene,
+			environment: {
+				lighting: {
+					directShadowsEnabled: true
+				}
+			}
+		});
+
+
+		filtervalg = {
+          //etasjer: ['Etasje U2', 'Etasje U1', 'Etasje 01', 'Etasje 02', 'Etasje 03', 'Etasje 04', 'Etasje 05', 'Etasje 06', 'Etasje 07', 'Etasje 08', 'Etasje 09', 'Etasje 10', 'Etasje 11', 'Etasje 12', 'Etasje 13'],
+          etasjer: [],
+          vegger: true,
+          omrader: true,
+          rom: true
+        };
+
+
+        function applyFilter() {
+
+          var uttrykksliste = [];
+
+          for (let property in filtervalg) {
+            if (property == 'etasjer' && filtervalg.etasjer.length>0) {
+            	var etgStreng = "StoreyLongName NOT IN (";
+
+            	var lengde = filtervalg[property].length;
+            	filtervalg[property].forEach((element) => {
+            		if (filtervalg[property].indexOf(element) < lengde-1){
+            			etgStreng+="'"+element+"'"+", ";
+            		} else {
+            			etgStreng+="'"+element+"'"+")"
+            		}
+            	});
+            	uttrykksliste.push(etgStreng);
+            } else if (property == 'vegger') {
+              if (filtervalg[property] == false) {
+              	uttrykksliste.push("ObjectType NOT LIKE '%Wall%'")
+              }
+
+            } else if (property == 'omrader') {
+              if (filtervalg[property] == false) {
+              	uttrykksliste.push("LongName != 'Area'")
+              }
+
+            } else if (property == 'rom') {
+              if (filtervalg[property] == false) {
+              	uttrykksliste.push("NOSHN_ROM_ShnHdDf IS NOT NULL")
+              }
+
+            } 
+          }
+
+
+          console.log(uttrykksliste);
+          console.log(filtervalg);
+
+          var uttrykk = "";
+
+
+          uttrykksliste.forEach((el) => {
+          	if (uttrykksliste.indexOf(el) < uttrykksliste.length-1) {
+          		uttrykk+= el + " AND "
+          	} else {
+          		uttrykk+= el
+          	}
+          })
+
+          
+
+          webScene.layers.forEach(function(layer) {
+            layer.definitionExpression = uttrykk;
+          })
+
+          
+        };
+
+
+
+
+        function filtrering(hendelse) {
+          console.log(hendelse.target.checked);
+          console.log(hendelse.target.value);
+          var verdi = hendelse.target.value
+
+
+          if (hendelse.target.checked) {
+            if (verdi.startsWith('Etasje')){
+              var index = filtervalg.etasjer.indexOf(verdi);
+              filtervalg.etasjer.splice(index, 1);
+
+            } else if (verdi == 'vegger'){
+              filtervalg.vegger = true
+            } else if (verdi == 'omrader'){
+              filtervalg.omrader = true
+            } else if (verdi == 'rom'){
+              filtervalg.rom = true
+            }
+          } else {
+            if (verdi.startsWith('Etasje')){
+              filtervalg.etasjer.push(verdi)
+            } else if (verdi == 'vegger'){
+              filtervalg.vegger = false
+            } else if (verdi == 'omrader'){
+              filtervalg.omrader = false
+            } else if (verdi == 'rom'){
+              filtervalg.rom = false
+            }
+          }
+
+          applyFilter()
+
+
+        };
+
+        webScene.when(function() {
+
+
+          // Add a layer list to enable and disable the building wireframe
+          var layerList = new LayerList({
+            view: view
+          });
+
+          view.ui.add(layerList, {
+            position: "top-right"
+          });
+        });
+
+
+
+        $( ".form-check" ).change(function(e) {
+          filtrering(e)
+        });
+
+
+        view.ui.add(document.getElementById("checkboxmenu"), {
+          position: "top-left",
+          index: 0
+        });
+
+		
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+
+
+    <div id="checkboxmenu" class="esri-widget">
+      
+      <div class="btn-group dropend">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          Velg etasje
+        </button>
+
+        <ul class="dropdown-menu">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Etasje U2" id="pU2" checked>
+            <label class="form-check-label" for="pU2">
+              U2
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Etasje U1" id="pU1" checked>
+            <label class="form-check-label" for="pU1">
+              U1
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Etasje 01" id="p1" checked>
+            <label class="form-check-label" for="p1">
+              1
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Etasje 02" id="p2" checked>
+            <label class="form-check-label" for="p2">
+              2
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Etasje 03" id="p3" checked>
+            <label class="form-check-label" for="p3">
+              3
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Etasje 04" id="p4" checked>
+            <label class="form-check-label" for="p4">
+              4
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Etasje 05" id="p5" checked>
+            <label class="form-check-label" for="p5">
+              5
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Etasje 06" id="p6" checked>
+            <label class="form-check-label" for="p6">
+              6
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Etasje 07" id="p7" checked>
+            <label class="form-check-label" for="p7">
+              7
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Etasje 08" id="p8" checked>
+            <label class="form-check-label" for="p8">
+              8
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Etasje 09" id="p9" checked>
+            <label class="form-check-label" for="p9">
+              9
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Etasje 10" id="p10" checked>
+            <label class="form-check-label" for="p10">
+              10
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Etasje 11" id="p11" checked>
+            <label class="form-check-label" for="p11">
+              11
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Etasje 12" id="p12" checked>
+            <label class="form-check-label" for="p12">
+              12
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Etasje 13" id="p13" checked>
+            <label class="form-check-label" for="p13">
+              13
+            </label>
+          </div>
+
+      </div>
+      
+
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="vegger" value="vegger" checked>
+        <label class="form-check-label" for="vegger" >Vegger</label>
+      </div>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="omrader"  value="omrader" checked>
+        <label class="form-check-label" for="omrader">Områder</label>
+      </div>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="rom"  value="rom" checked>
+        <label class="form-check-label" for="rom">Rom</label>
+      </div>
+    </div>
+
+
+  </body>
+</html>
