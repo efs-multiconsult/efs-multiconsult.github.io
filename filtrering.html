@@ -164,12 +164,12 @@
           
           console.log(filtervalg);
 
-          var uttrykk = "objtype IN ('Trapp', 'Door') AND";
+          var uttrykk = "objtype IN ('Trapp', 'Door')";
 
 
           uttrykksliste.forEach((el) => {
           	if (uttrykksliste.indexOf(el) < uttrykksliste.length-1) {
-          		uttrykk+= el + " AND "
+          		uttrykk+= " AND " + el + " AND "
           	} else {
           		uttrykk+= el
           	}
