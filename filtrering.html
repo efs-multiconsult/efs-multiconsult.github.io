@@ -52,7 +52,7 @@
     <script src="https://js.arcgis.com/4.18/"></script>
 
     <script>
-      require(["esri/identity/OAuthInfo", "esri/portal/Portal", "esri/config", "esri/portal/PortalQueryParams", "esri/identity/IdentityManager", "esri/WebScene", "esri/views/SceneView", "esri/widgets/Legend", "esri/widgets/LayerList", "esri/widgets/BasemapGallery",  "esri/widgets/Expand"], function(
+      require(["esri/identity/OAuthInfo", "esri/portal/Portal", "esri/config", "esri/portal/PortalQueryParams", "esri/identity/IdentityManager", "esri/WebScene", "esri/views/SceneView", "esri/widgets/Legend", "esri/widgets/LayerList", "esri/widgets/BasemapGallery",  "esri/widgets/Expand",  "esri/widgets/Slice"], function(
       	OAuthInfo,
       	Portal,
       	esriConfig,
@@ -63,7 +63,8 @@
         Legend,
         LayerList,
 		BasemapGallery,
-		Expand
+		Expand,
+		Slice
       ) {
 
 
@@ -141,7 +142,7 @@
             } 
 			if (property == 'vegger') {
               if (filtervalg[property] == false) {
-              	uttrykksliste.push("objtype <> 'Vegg'")
+              	uttrykksliste.push("objtype <> 'Vegg' AND objtype <> 'Gulv'")
               }
 
             } 
@@ -229,21 +230,44 @@
             view: view
           });
 
+        var slice = new Slice({
+          view: view
+        });
+
+        const sliceExpand = new Expand({
+          view: view,
+          content: slice
+        });
+        view.ui.add(sliceExpand, "bottom-left");
+
+        var basemapGallery = new BasemapGallery({
+          view: view
+        });
+
+        const bgExpand = new Expand({
+          view: view,
+          content: basemapGallery
+        });
+        view.ui.add(bgExpand, "bottom-left");
+
+
+
+
           view.ui.add(layerList, {
             position: "top-right"
           });
+
+          view.ui.add(document.getElementById("checkboxmenu"), {
+            position: "top-left",
+            index: 0
+          });
+
         });
 
 
 
         $( ".form-check" ).change(function(e) {
           filtrering(e)
-        });
-
-
-        view.ui.add(document.getElementById("checkboxmenu"), {
-          position: "top-left",
-          index: 0
         });
 
 		
@@ -366,7 +390,7 @@
 
       <div class="form-check form-switch">
         <input class="form-check-input" type="checkbox" id="vegger" value="vegger" checked>
-        <label class="form-check-label" for="vegger" >Vegger</label>
+        <label class="form-check-label" for="vegger" >Vegger og gulv</label>
       </div>
       <div class="form-check form-switch">
         <input class="form-check-input" type="checkbox" id="omrader"  value="omrader" checked>
@@ -375,6 +399,10 @@
       <div class="form-check form-switch">
         <input class="form-check-input" type="checkbox" id="rom"  value="rom" checked>
         <label class="form-check-label" for="rom">Rom</label>
+      </div>
+	  <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="rom"  value="rom" checked>
+        <label class="form-check-label" for="rom">Annet</label>
       </div>
     </div>
 
