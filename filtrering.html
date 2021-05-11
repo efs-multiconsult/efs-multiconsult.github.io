@@ -62,58 +62,58 @@
         SceneView,
         Legend,
         LayerList,
-		BasemapGallery,
-		Expand,
-		Slice
-      ) {
+		    BasemapGallery,
+		    Expand,
+		    Slice
+        ) {
 
 
-      	var info = new OAuthInfo({
-			// Swap this ID out with registered application ID
-			appId: "uexIzIm27zMWY9XL",
-			// Uncomment the next line and update if using your own portal
-			portalUrl: "https://cloudgis.multiconsult.no/portal/",
-			// Uncomment the next line to prevent the user's signed in state from being shared with other apps on the same domain with the same authNamespace value.
-			// authNamespace: "portal_oauth_inline",
-			popup: false
-		});
-
-		esriId.registerOAuthInfos([info]);
-
-
-		esriId
-			.checkSignInStatus(info.portalUrl + "/sharing")
-			.then(function() {
-				// ikke behov
-			})
-
-		esriId.getCredential(info.portalUrl + "/sharing");
-
-
-		esriConfig.portalUrl = "https://cloudgis.multiconsult.no/portal/"
-		
-
-        // load web scene from ArcGIS Online
-        var webScene = new WebScene({
-			portalItem: {
-
-			id: "12b6feda2cae40ec87286be187554814"
-			}
+          var info = new OAuthInfo({
+          // Swap this ID out with registered application ID
+          appId: "uexIzIm27zMWY9XL",
+          // Uncomment the next line and update if using your own portal
+          portalUrl: "https://cloudgis.multiconsult.no/portal/",
+          // Uncomment the next line to prevent the user's signed in state from being shared with other apps on the same domain with the same authNamespace value.
+          // authNamespace: "portal_oauth_inline",
+          popup: false
         });
 
-		// create the scene view
-		var view = new SceneView({
-			container: "viewDiv",
-			map: webScene,
-			environment: {
-				lighting: {
-					directShadowsEnabled: true
-				}
-			}
-		});
+        esriId.registerOAuthInfos([info]);
 
 
-		filtervalg = {
+        esriId
+          .checkSignInStatus(info.portalUrl + "/sharing")
+          .then(function() {
+            // ikke behov
+          })
+
+        esriId.getCredential(info.portalUrl + "/sharing");
+
+
+        esriConfig.portalUrl = "https://cloudgis.multiconsult.no/portal/"
+        
+
+            // load web scene from ArcGIS Online
+            var webScene = new WebScene({
+          portalItem: {
+
+          id: "12b6feda2cae40ec87286be187554814"
+          }
+            });
+
+        // create the scene view
+        var view = new SceneView({
+          container: "viewDiv",
+          map: webScene,
+          environment: {
+            lighting: {
+              directShadowsEnabled: true
+            }
+          }
+        });
+
+
+        filtervalg = {
           //etasjer: ['Etasje U2', 'Etasje U1', 'Etasje 01', 'Etasje 02', 'Etasje 03', 'Etasje 04', 'Etasje 05', 'Etasje 06', 'Etasje 07', 'Etasje 08', 'Etasje 09', 'Etasje 10', 'Etasje 11', 'Etasje 12', 'Etasje 13'],
           etasjer: [],
           vegger: true,
@@ -128,33 +128,33 @@
 
           for (let property in filtervalg) {
             if (property == 'etasjer' && filtervalg.etasjer.length>0) {
-            	var etgStreng = "StoreyLongName NOT IN (";
+              var etgStreng = "StoreyLongName NOT IN (";
 
-            	var lengde = filtervalg[property].length;
-            	filtervalg[property].forEach((element) => {
-            		if (filtervalg[property].indexOf(element) < lengde-1){
-            			etgStreng+="'"+element+"'"+", ";
-            		} else {
-            			etgStreng+="'"+element+"'"+")"
-            		}
-            	});
-            	uttrykksliste.push(etgStreng);
+              var lengde = filtervalg[property].length;
+              filtervalg[property].forEach((element) => {
+                if (filtervalg[property].indexOf(element) < lengde-1){
+                  etgStreng+="'"+element+"'"+", ";
+                } else {
+                  etgStreng+="'"+element+"'"+")"
+                }
+              });
+              uttrykksliste.push(etgStreng);
             } 
-			if (property == 'vegger') {
+            if (property == 'vegger') {
               if (filtervalg[property] == false) {
-              	uttrykksliste.push("objtype <> 'Vegg' AND objtype <> 'Gulv'")
+                uttrykksliste.push("objtype <> 'Vegg' AND objtype <> 'Gulv'")
               }
 
             } 
-			if (property == 'omrader') {
+            if (property == 'omrader') {
               if (filtervalg[property] == false) {
-              	uttrykksliste.push("objtype <> 'Omrade'")
+                uttrykksliste.push("objtype <> 'Omrade'")
               }
 
             } 
-			if (property == 'rom') {
+            if (property == 'rom') {
               if (filtervalg[property] == false) {
-              	uttrykksliste.push("objtype <> 'Rom'")
+                uttrykksliste.push("objtype <> 'Rom'")
               }
 
             } 
@@ -230,25 +230,25 @@
             view: view
           });
 
-        var slice = new Slice({
-          view: view
-        });
+          var slice = new Slice({
+            view: view
+          });
 
-        const sliceExpand = new Expand({
-          view: view,
-          content: slice
-        });
-        view.ui.add(sliceExpand, "bottom-left");
+          const sliceExpand = new Expand({
+            view: view,
+            content: slice
+          });
+          view.ui.add(sliceExpand, "bottom-left");
 
-        var basemapGallery = new BasemapGallery({
-          view: view
-        });
+          var basemapGallery = new BasemapGallery({
+            view: view
+          });
 
-        const bgExpand = new Expand({
-          view: view,
-          content: basemapGallery
-        });
-        view.ui.add(bgExpand, "bottom-left");
+          const bgExpand = new Expand({
+            view: view,
+            content: basemapGallery
+          });
+          view.ui.add(bgExpand, "bottom-left");
 
 
 
