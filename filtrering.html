@@ -140,19 +140,19 @@
             } 
 			if (property == 'vegger') {
               if (filtervalg[property] == false) {
-              	uttrykksliste.push("ObjectType NOT IN ('Rectangular Mullion:Profil Aluminium 50x200 mm Offset -50 mm', 'System Panel:Termorude 26 mm', 'Basic Wall:Vegg lamell', 'Basic Wall:Vegg base', 'Basic Wall:Vegg tegl', 'Basic Wall:Innervegg - Generic 150', 'Basic Wall:innvendig yttervegg', 'Basic Wall:Vegg Betong 250 mm', 'Basic Wall:Vegg Betong 300 mm', 'Basic Wall:Vegg Brannseksjonering 550 mm', 'Basic Wall:Vegg Gips 150 mm', 'Basic Wall:Vegg Påforing Gips 75 mm')")
+              	uttrykksliste.push("ObjectType IN ('Rectangular Mullion:Profil Aluminium 50x200 mm Offset -50 mm', 'System Panel:Termorude 26 mm', 'Basic Wall:Vegg lamell', 'Basic Wall:Vegg base', 'Basic Wall:Vegg tegl', 'Basic Wall:Innervegg - Generic 150', 'Basic Wall:innvendig yttervegg', 'Basic Wall:Vegg Betong 250 mm', 'Basic Wall:Vegg Betong 300 mm', 'Basic Wall:Vegg Brannseksjonering 550 mm', 'Basic Wall:Vegg Gips 150 mm', 'Basic Wall:Vegg Påforing Gips 75 mm')")
               }
 
             } 
 			if (property == 'omrader') {
               if (filtervalg[property] == false) {
-              	uttrykksliste.push("LongName <> 'Area'")
+              	uttrykksliste.push("LongName = 'Area'")
               }
 
             } 
 			if (property == 'rom') {
               if (filtervalg[property] == false) {
-              	uttrykksliste.push("NOSHN_ROM_ShnHdHf IS NOT NULL AND LongName <> 'Area'")
+              	uttrykksliste.push("NOSHN_ROM_ShnHdHf IS NULL AND LongName  'Area'")
               }
 
             } 
