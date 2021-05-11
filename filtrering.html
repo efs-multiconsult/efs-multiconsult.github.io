@@ -39,6 +39,7 @@
 
       #checkboxmenu{
         border-radius: 7.5px;
+		padding: 5px;
       }
 
       .btn-secondary {
@@ -146,13 +147,13 @@
             } 
 			if (property == 'omrader') {
               if (filtervalg[property] == false) {
-              	uttrykksliste.push("LongName <> 'Area'")
+              	uttrykksliste.push("LongName NOT IN ('Area')")
               }
 
             } 
 			if (property == 'rom') {
               if (filtervalg[property] == false) {
-              	uttrykksliste.push("NOSHN_ROM_ShnHdDf <> 'nul'")
+              	uttrykksliste.push("NOSHN_ROM_ShnHdDf NOT IN ('nul')")
               }
 
             } 
