@@ -144,7 +144,7 @@
 
             } else if (property == 'omrader') {
               if (filtervalg[property] == false) {
-              	uttrykksliste.push("LongName = 'Area'")
+              	uttrykksliste.push("LongName <> 'Area'")
               }
 
             } else if (property == 'rom') {
@@ -164,7 +164,7 @@
 
           uttrykksliste.forEach((el) => {
           	if (uttrykksliste.indexOf(el) < uttrykksliste.length-1) {
-          		uttrykk+= el + " OR "
+          		uttrykk+= el + " AND "
           	} else {
           		uttrykk+= el
           	}
