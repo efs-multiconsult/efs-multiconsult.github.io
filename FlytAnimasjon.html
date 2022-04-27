@@ -62,8 +62,10 @@
 		"esri/symbols/PointSymbol3D",
 		"esri/symbols/WebStyleSymbol",
 		"esri/renderers/visualVariables/RotationVariable",
-		"esri/renderers/visualVariables/SizeVariable"
-      ], (OAuthInfo, esriId, Portal, esriConfig, PortalQueryParams, WebScene, SceneView, FeatureLayerView, FeatureLayer, UniqueValueRenderer, SimpleRenderer, ObjectSymbol3DLayer, PointSymbol3D, WebStyleSymbol, RotationVariable, SizeVariable) => {
+		"esri/renderers/visualVariables/SizeVariable",
+		"esri/widgets/Bookmarks",
+		"esri/widgets/Expand"
+      ], (OAuthInfo, esriId, Portal, esriConfig, PortalQueryParams, WebScene, SceneView, FeatureLayerView, FeatureLayer, UniqueValueRenderer, SimpleRenderer, ObjectSymbol3DLayer, PointSymbol3D, WebStyleSymbol, RotationVariable, SizeVariable, Bookmarks, Expand) => {
 
 		
 		var info = new OAuthInfo({
@@ -120,8 +122,18 @@
 		};
 		
 
+		const bookmarks = new Bookmarks({
+          view: view
+        });
 
+        const bkExpand = new Expand({
+			view: view,
+			content: bookmarks,
+			expanded: true
+        });
 
+        // Add the widget to the top-right corner of the view
+        view.ui.add(bkExpand, "top-right");
 
 		
         const renderer = {
@@ -234,11 +246,10 @@
 			<div id="flytvelger" class="btn-toolbar mb-3 position-absolute" role="toolbar" aria-label="Toolbar with button groups">
 				<div class="btn-group me-2" role="group" aria-label="First group">
 					<button value="1" id="route1" type="button" class="btn btn-outline-secondary bg-white">1</button>
-					<button value="2" id="route2" type="button" class="btn btn-outline-secondary bg-white">2</button>
-					<button value="3" id="route3" type="button" class="btn btn-outline-secondary bg-white">3</button>
-					<button value="4" id="route4" type="button" class="btn btn-outline-secondary bg-white">4</button>
 				</div>
 			</div>
+
+			<div id="bookmarkDiv"></div>
 
 	</div>
 
