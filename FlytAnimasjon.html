@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
     <title>
-      Path visualization in 3D | Sample | ArcGIS API for JavaScript 4.23
+      Flytanimasjon NRH
     </title>
     <link
       rel="stylesheet"
@@ -157,10 +157,10 @@
 		sv.maxSize= 3;
 
 		var rv = new RotationVariable();
-		rv.field = "rotval";
+		rv.field = "rotation";
 		rv.rotationType = "geographic";
 		rv.axis = "heading";
-		rv.valueExpression = "$feature.rotval"
+		rv.valueExpression = "$feature.rotation"
 
 		renderer.visualVariables = [ rv, sv ];
 
@@ -168,7 +168,7 @@
 		console.log(renderer);
         /* Create layer with routes */
         const punktlag = new FeatureLayer({
-			url: "https://cloudgis.multiconsult.no/server/rest/services/Hosted/FlytVariant1_NyeRiks/FeatureServer",
+			url: "https://cloudgis.multiconsult.no/server/rest/services/Hosted/NyeRiks_Flyt_4_9_v2/FeatureServer",
 			copyright: "Erlend",
 			elevationInfo: {
 				mode: "absolute-height",
@@ -196,7 +196,7 @@
 		function myLoop() {         //  create a loop function
 			setTimeout(function() {   //  call a 150ms setTimeout when the loop is called				
 				featureLayerView.filter = {
-					where: "nummer = "+i.toString()
+					where: "meter = "+i.toString()
 				};
 				//props.extent = featureLayerView.fullExtent
 
@@ -247,7 +247,7 @@
 
 			<div id="flytvelger" class="btn-toolbar mb-3 position-absolute" role="toolbar" aria-label="Toolbar with button groups">
 				<div class="btn-group me-2" role="group" aria-label="First group">
-					<button value="1" id="route1" type="button" class="btn btn-outline-secondary bg-white">1</button>
+					<button value="1" id="route1" type="button" class="btn btn-outline-secondary bg-white">Start flytt</button>
 				</div>
 			</div>
 
