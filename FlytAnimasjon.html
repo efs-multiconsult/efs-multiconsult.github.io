@@ -237,11 +237,11 @@
 					where: "nummer = "+i.toString()
 				};
 				//props.extent = featureLayerView.fullExtent
-				console.log(i)
+				//console.log(i)
 				i++;                    //  increment the counter
 				if (i < props.segmentNum) {           //  if the counter < 10, call the loop function
 					myLoop(); 
-					if (i == 180) {
+					if (i == 700) {
 						sliceWidget.viewModel.shape = plane2;
 						
 					}                  //  ..  again which will trigger another 
