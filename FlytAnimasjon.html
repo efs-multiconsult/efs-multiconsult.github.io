@@ -151,21 +151,21 @@
           },
           tilt: 0,
           width: 400,
-          height: 70,
+          height: 200,
           heading: 268
         });
 
-		console.log(plane1);
 		const plane2 = new SlicePlane({
           position: {
-            latitude: 34.0600460070941,
-            longitude: -117.18669237418565,
-            z: 417.75
+            y: 66536671,
+            x: 260804,
+            z: 117,
+			spatialReference: 25833
           },
-          tilt: 32.62,
-          width: 29,
-          height: 29,
-          heading: 0.46
+          tilt: 0,
+          width: 200,
+          height: 200,
+          heading: 291
         });
 
 
@@ -250,6 +250,10 @@
 					featureLayerView.filter = {
 						where: "nummer=0"
 					};
+				}
+				if (i == 700) {
+					sliceWidget.viewModel.shape = plane2;
+
 				}                       //  ..  setTimeout()
 			}, 150)
 		}
