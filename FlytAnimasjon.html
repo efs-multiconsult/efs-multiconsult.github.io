@@ -41,7 +41,9 @@
       }
 
       #sliceContainer {
-        width: inherit;
+        top: 50px;
+		right: 50px;
+		position: absolute;
       }
 
       #sliceOptions {
@@ -52,9 +54,7 @@
         margin-bottom: 15px;
       }
 
-      #sliceContainer {
-        max-width: 228px;
-      }
+
 
       select {
         font-family: "Avenir Next W00", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -212,7 +212,12 @@
         });
         webscene.add(punktlag);
 
+		sliceWidget = new Slice({
+			view: view,
+			container: "sliceContainer"
+		});
 
+		sliceWidget.viewModel.shape = plane1
 		
 		view.whenLayerView(punktlag).then(function (layerView) {
             featureLayerView = layerView;
@@ -221,12 +226,7 @@
 				where: "1=0"
 			};
 
-			sliceWidget = new Slice({
-				view: view,
-				container: "sliceContainer"
-			});
 
-			sliceWidget.viewModel.shape = plane1
 		});
 
 		
