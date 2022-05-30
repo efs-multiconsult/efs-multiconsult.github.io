@@ -234,6 +234,13 @@
 			featureLayerView.filter = {
 				where: "1=0"
 			};
+
+			sliceWidget = new Slice({
+				view: view,
+				container: "sliceContainer"
+			});
+
+			sliceWidget.viewModel.shape = plane1
 		});
 
 		
