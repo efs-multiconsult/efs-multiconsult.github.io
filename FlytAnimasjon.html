@@ -40,6 +40,22 @@
         padding: 0.4em;
       }
 
+      #sliceContainer {
+        width: inherit;
+      }
+
+      #sliceOptions {
+        margin: 0 15px;
+      }
+
+      #sliceOptions>button {
+        margin-bottom: 15px;
+      }
+
+      #sliceContainer {
+        max-width: 228px;
+      }
+
       select {
         font-family: "Avenir Next W00", "Helvetica Neue", Helvetica, Arial, sans-serif;
       }
@@ -64,8 +80,10 @@
 		"esri/renderers/visualVariables/RotationVariable",
 		"esri/renderers/visualVariables/SizeVariable",
 		"esri/widgets/Bookmarks",
-		"esri/widgets/Expand"
-      ], (OAuthInfo, esriId, Portal, esriConfig, PortalQueryParams, WebScene, SceneView, FeatureLayerView, FeatureLayer, UniqueValueRenderer, SimpleRenderer, ObjectSymbol3DLayer, PointSymbol3D, WebStyleSymbol, RotationVariable, SizeVariable, Bookmarks, Expand) => {
+		"esri/widgets/Expand",
+		"esri/widgets/Slice",
+        "esri/analysis/SlicePlane"
+      ], (OAuthInfo, esriId, Portal, esriConfig, PortalQueryParams, WebScene, SceneView, FeatureLayerView, FeatureLayer, UniqueValueRenderer, SimpleRenderer, ObjectSymbol3DLayer, PointSymbol3D, WebStyleSymbol, RotationVariable, SizeVariable, Bookmarks, Expand, Slice, SlicePlane) => {
 
 		
 		var info = new OAuthInfo({
@@ -134,6 +152,34 @@
 
         // Add the widget to the top-right corner of the view
         view.ui.add(bkExpand, "top-right");
+
+
+
+
+		const plane1 = new SlicePlane({
+          position: {
+            latitude: 34.0600460070941,
+            longitude: -117.18669237418565,
+            z: 417.75
+          },
+          tilt: 32.62,
+          width: 29,
+          height: 29,
+          heading: 0.46
+        });
+
+		const plane2 = new SlicePlane({
+          position: {
+            latitude: 34.0600460070941,
+            longitude: -117.18669237418565,
+            z: 417.75
+          },
+          tilt: 32.62,
+          width: 29,
+          height: 29,
+          heading: 0.46
+        });
+
 
 		
         const renderer = {
@@ -252,6 +298,8 @@
 			</div>
 
 			<div id="bookmarkDiv"></div>
+
+			<div id="sliceContainer"></div>
 
 	</div>
 
