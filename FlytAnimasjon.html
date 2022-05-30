@@ -232,6 +232,7 @@
 		var i = 1;   
 		function myLoop() {         //  create a loop function
 			setTimeout(function() {   //  call a 150ms setTimeout when the loop is called				
+				sliceWidget.viewModel.shape = plane1;
 				featureLayerView.filter = {
 					where: "meter = "+i.toString()
 				};
