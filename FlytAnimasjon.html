@@ -154,6 +154,7 @@
           heading: 0.46
         });
 
+		console.log(plane1);
 		const plane2 = new SlicePlane({
           position: {
             latitude: 34.0600460070941,
@@ -217,7 +218,7 @@
 			container: "sliceContainer"
 		});
 
-		sliceWidget.viewModel.shape = plane1
+		sliceWidget.viewModel.shape = plane1;
 		
 		view.whenLayerView(punktlag).then(function (layerView) {
             featureLayerView = layerView;
