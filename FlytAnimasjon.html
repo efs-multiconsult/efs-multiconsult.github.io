@@ -243,7 +243,11 @@
 
 				i++;                    //  increment the counter
 				if (i < props.segmentNum) {           //  if the counter < 10, call the loop function
-					myLoop();             //  ..  again which will trigger another 
+					myLoop(); 
+					if (i == 700) {
+						sliceWidget.viewModel.shape = plane2;
+
+					}                  //  ..  again which will trigger another 
 				} else {
 					i = 1
 					console.log("animasjon over")
@@ -251,10 +255,7 @@
 						where: "nummer=0"
 					};
 				}
-				if (i == 700) {
-					sliceWidget.viewModel.shape = plane2;
-
-				}                       //  ..  setTimeout()
+                 //  ..  setTimeout()
 			}, 150)
 		}
 
