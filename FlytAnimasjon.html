@@ -234,7 +234,7 @@
 			setTimeout(function() {   //  call a 150ms setTimeout when the loop is called				
 				sliceWidget.viewModel.shape = plane1;
 				featureLayerView.filter = {
-					where: "meter = "+i.toString()
+					where: "nummer = "+i.toString()
 				};
 				//props.extent = featureLayerView.fullExtent
 				console.log(i)
@@ -253,7 +253,7 @@
 					};
 				}
                  //  ..  setTimeout()
-			}, 150)
+			}, 30)
 		}
 
 		// Sjekker hvor mange segmenter det er i linja og lagrer i et obj
