@@ -270,6 +270,7 @@
 		*/
 
 		const r1 = document.getElementById("route1");
+		
         r1.addEventListener("click", (event) => {
 			console.log("KATTE");
 			//view.goTo(props.extent);
@@ -278,7 +279,9 @@
 			myLoop();
         });
 
-
+		view.when(function() {
+			r1.style.display = "block";// All layer and basemap resources have been loaded and are ready to be displayed
+		});
 
 
       });
@@ -291,7 +294,7 @@
 
 			<div id="flytvelger" class="btn-toolbar mb-3 position-absolute" role="toolbar" aria-label="Toolbar with button groups">
 				<div class="btn-group me-2" role="group" aria-label="First group">
-					<button value="1" id="route1" type="button" class="btn btn-outline-secondary bg-white">Start flytt</button>
+					<button value="1" id="route1" style="display:none" type="button" class="btn btn-outline-secondary bg-white">Start flytt</button>
 				</div>
 			</div>
 
