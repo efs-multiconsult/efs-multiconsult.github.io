@@ -259,7 +259,6 @@
 				
 				h1.textContent = (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) + ":" + mseconds;
 
-				timer();
 
 				// time + = 0.2	
 				sliceWidget.viewModel.shape = plane1;
@@ -334,7 +333,7 @@
 
 			<div id="stopwatch"> 
 				<h1><time>00:00:00</time></h1> 
-				<h2> ss:mm:ms </h2>
+				<h2> mm:ss:ms </h2>
 			</div>
 
 	</div>
