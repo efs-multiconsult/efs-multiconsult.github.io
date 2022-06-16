@@ -59,8 +59,9 @@
 	  }
 
 	  #stopwatch {
-		bottom: 50;
-		padding-left: 100;
+		position: absolute;
+		bottom: 100;
+		padding-left: 50;
 		z-index: 9;
 	  }
 
@@ -238,10 +239,21 @@
 		});
 
 		
-
+		var seconds = 0.0;
 		var i = 1;   
 		function myLoop() {         //  create a loop function
-			setTimeout(function() {   //  call a 150ms setTimeout when the loop is called			
+			setTimeout(function() {   //  call a 150ms setTimeout when the loop is called	
+				
+				seconds+= 0.2;
+				if (seconds >= 60) {
+					seconds = 0;
+					minutes++;
+				}
+				
+				h1.textContent = (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+				timer();
+
 				// time + = 0.2	
 				sliceWidget.viewModel.shape = plane1;
 				featureLayerView.filter = {
@@ -313,7 +325,7 @@
 
 			<div id="sliceContainer"></div>
 
-			<div id="stopwatch"> <h2><time>00:00</time></h2> </div>
+			<div id="stopwatch"> <h1><time>00:00</time></h1> </div>
 
 	</div>
 
