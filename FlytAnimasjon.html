@@ -58,6 +58,12 @@
 		  display: none;
 	  }
 
+	  #stopwatch {
+		bottom: 50;
+		padding-left: 100;
+		z-index: 9;
+	  }
+
 
 
       select {
@@ -160,7 +166,7 @@
           position: {
             y: 6653462,
             x: 260724,
-            z: 117.5,
+            z: 117.8,
 			spatialReference: 25833
           },
           tilt: 0,
@@ -235,7 +241,8 @@
 
 		var i = 1;   
 		function myLoop() {         //  create a loop function
-			setTimeout(function() {   //  call a 150ms setTimeout when the loop is called				
+			setTimeout(function() {   //  call a 150ms setTimeout when the loop is called			
+				// time + = 0.2	
 				sliceWidget.viewModel.shape = plane1;
 				featureLayerView.filter = {
 					where: "nummer = "+i.toString()
@@ -305,6 +312,8 @@
 			<div id="bookmarkDiv"></div>
 
 			<div id="sliceContainer"></div>
+
+			<div id="stopwatch"> <h2><time>00:00</time></h2> </div>
 
 	</div>
 
