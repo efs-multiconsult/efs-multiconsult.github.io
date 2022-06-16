@@ -56,13 +56,21 @@
 
 	  #route1 {
 		  display: none;
+		  color: black;
+		  font-size: medium;
 	  }
 
 	  #stopwatch {
 		position: absolute;
 		bottom: 100;
-		padding-left: 50;
+		/* padding-left: 50; */
+		left: 30;
 		z-index: 9;
+		margin: 5;
+		background: white;
+		opacity: 0.8;
+		border: 1px solid;
+		border-radius: 5px;
 	  }
 
 
@@ -304,7 +312,9 @@
 			console.log("KATTE");
 			//view.goTo(props.extent);
 			//sliceWidget.viewModel.shape = plane2;
-			
+			minutes = 0;
+			seconds = 0;
+			mseconds = 0;
 			myLoop();
         });
 
