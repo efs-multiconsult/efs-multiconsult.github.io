@@ -239,18 +239,25 @@
 		});
 
 		var h1 = document.getElementsByTagName('h1')[0];
-		var seconds = 0.0;
+		var mseconds = 0;
+		var seconds = 0;
+		var minutes = 0;
 		var i = 1;   
 		function myLoop() {         //  create a loop function
 			setTimeout(function() {   //  call a 150ms setTimeout when the loop is called	
 				
-				seconds+= 0.2;
+				mseconds+= 200;
+				
+				if (mseconds >= 1000) {
+					mseconds = 0;
+					seconds++;
+				}
 				if (seconds >= 60) {
 					seconds = 0;
 					minutes++;
-				}
+				} 
 				
-				h1.textContent = (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+				h1.textContent = (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds) + ":" + mseconds;
 
 				timer();
 
@@ -325,7 +332,10 @@
 
 			<div id="sliceContainer"></div>
 
-			<div id="stopwatch"> <h1><time>00:00</time></h1> </div>
+			<div id="stopwatch"> 
+				<h1><time>00:00:00</time></h1> 
+				<h2> ss:mm:ms </h2>
+			</div>
 
 	</div>
 
